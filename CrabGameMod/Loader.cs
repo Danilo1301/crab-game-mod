@@ -43,14 +43,51 @@ namespace CrabGameMod
             {
                 var harmony = new Harmony("wh0am15533.trainer.il2cpp");
 
-                harmony.Patch(AccessTools.Method(typeof(Chatbox), "Update"),
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicRaovTMinTemeColoonCoUnique), "Update"),
                     postfix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "Update")));
 
-                harmony.Patch(AccessTools.Method(typeof(LobbyManager), "BanPlayer"),
+                //MonoBehaviourPublicInInUnique.GameSpawnPlayer
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicInInUnique), "GameSpawnPlayer"),
+                   prefix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "OnGameSpawnPlayer")));
+
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicInInUnique), "PlayerDied"),
+                   prefix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "OnPlayerDied")));
+
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicCSDi2UIInstObUIloDiUnique), "BanPlayer"),
                    prefix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "OnTryBanPlayer")));
 
-                harmony.Patch(AccessTools.Method(typeof(Chatbox), "AppendMessage"),
-                    postfix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "OnAppendMessage")));
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicInInUnique), "SendChatMessage"),
+                  prefix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "OnSendChatMessage")));
+
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicInInUnique), "LoadMap", new Type[] { typeof(int), typeof(int) }),
+                  prefix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "OnLoadMap", new Type[] { typeof(int), typeof(int) })));
+
+
+
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicUIInUIByUIUnique), "ForceGiveItem"),
+                  prefix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "ForceGiveItem")));
+
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicUIInUIByUIUnique), "ReceiveChatMessage"),
+                    prefix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "ReceiveChatMessage")));
+
+
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicUIInUIByUIUnique), "GameSpawnPlayer"),
+                    prefix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "GameSpawnPlayer")));
+
+                
+
+
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicPlVoUI9StVoUI9PlLoUnique), "TryInteract"),
+                    prefix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "TryInteract")));
+
+      
+
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicInInUnique), "LoadMap", new Type[] { typeof(int), typeof(int), typeof(ulong) }),
+                  prefix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "OnLoadMap", new Type[] { typeof(int), typeof(int), typeof(ulong) })));
+
+
+                harmony.Patch(AccessTools.Method(typeof(MonoBehaviourPublicRaovTMinTemeColoonCoUnique), "AppendMessage"),
+                    prefix: new HarmonyMethod(AccessTools.Method(typeof(Mod), "OnAppendMessage")));
 
                 log.LogMessage("Runtime Hooks's Applied");
                 log.LogMessage(" ");
